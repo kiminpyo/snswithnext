@@ -1,0 +1,10 @@
+.serverless
+/front/build/
+react-sns.pem
+react-sns-aws.pem
+node_modules
+.env
+.next
+
+
+
