@@ -5,7 +5,7 @@ import CommentForm from './CommentForm'
 import {Card, Popover, Avatar , Button, List, Comment} from 'antd'
 import {RetweetOutlined, HeartOutlined, MessageOutlined, EllipsisOutlined, HeartTwoTone} from '@ant-design/icons';
 import PostCardContent from './PostCardContent'
-import Link from 'next/Link'
+import Link from 'next/link'
 
 import { REMOVE_POST_REQUEST, RETWEET_REQUEST ,LIKE_POST_REQUEST, UNLIKE_POST_REQUEST  } from '../reducers/post'
 import {useDispatch, useSelector} from 'react-redux'

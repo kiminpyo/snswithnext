@@ -3,7 +3,7 @@ import {useSelector} from 'react-redux'
 import PropTypes from 'prop-types';
 
 import styled from 'styled-components'
-import Link from 'next/Link'
+import Link from 'next/link'
 
 import { Menu, Input, Row, Col } from  'antd'
 import { createGlobalStyle } from 'styled-components';

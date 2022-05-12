@@ -1,5 +1,5 @@
 import React,{useState, useCallback, useMemo, useEffect} from 'react'
-import Link from 'next/Link'
+import Link from 'next/link'
 import  {useDispatch,useSelector} from 'react-redux'
 
 import { loginRequestAction } from '../reducers/user'
