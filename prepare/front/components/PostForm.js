@@ -3,6 +3,7 @@ import {Form, Input, Upload, Button} from 'antd'
 import {useSelector, useDispatch} from 'react-redux'
 import {addPost, ADD_POST_REQUEST} from '../reducers/post'
 import useInput from '../hooks/useInput'
+import { backUrl } from '../config/config'
 import { UPLOAD_IMAGES_REQUEST, REMOVE_IMAGE } from '../reducers/post'
 const PostForm = () => {
 
@@ -83,7 +84,7 @@ const PostForm = () => {
        <div>
            {imagePaths.map((v,i) => (
                <div key={v} style={{display: 'inline-block'}}>
-                   <img src={`http://localhost:3065/images/${v}`} style={{width: '200px'}} alt={v} />
+                   <img src={`${backUrl}/images/${v}`} style={{width: '200px'}} alt={v} />
                    <div>
                        <Button onClick={onRemoveImage(i)}>제거</Button>
                    </div>
