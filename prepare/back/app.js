@@ -6,6 +6,8 @@ const passport = require('passport');
 const dotenv = require('dotenv');
 const morgan = require('morgan')
 const path = require('path');
+const hpp = require('hpp');
+const helmet = require('helmet');
 
 const postsRouter = require('./routes/posts')
 const postRouter = require('./routes/post');
@@ -24,8 +26,15 @@ db.sequelize.sync()
 passportConfig();
 
 /* 얘네는 passport의 시리얼라이즈 디시리얼 라이즈 를 실행시킨다.  app.js는 중앙 관리소라고 보면됨*/
+/* 개발모드랑 배포모드일떄 다르다 => 이유? */
+if(process.env.NODE_ENV === 'production'){
+  app.use(morgan('combined'))
+  app.use(hpp());
+  app.use(helmet());
+}else{
+  app.use(morgan('dev'));
+}
 
-app.use(morgan('dev'));
 /* 조회수 1올리는거나 뭔가애매한 것들은 post를 써라 
  get,post,put,delete를 정확히 지키는 것이 resAPI인데,
  정확히 지키기는 어렵다. 어느정도 선에서 합의를 타협한다.
@@ -35,7 +44,7 @@ app.use(morgan('dev'));
 app.use(cors({ 
     /* 쿠키 관련  */
     credentials: true,
-    origin: 'http://localhost:3060',
+    origin: ['http://localhost:3060', 'nodebird.com'],
     
 }))
 /* 경로구분자가 운영체제에 맞게 문제가 되기때문에  */
@@ -51,6 +60,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser( process.env.COOKIE_SECRET));
 app.use(session());
 app.use(passport.initialize());
+
 app.use(passport.session({
     /* 나중에 다시 찾아보기 */
     saveUninitialized: false,
@@ -77,6 +87,6 @@ app.use((err,req,res,next) =>{
 
 })
 
-app.listen(3065, ()=>{
+app.listen(80, ()=>{
     console.log('서버 실행 중!')
 });
