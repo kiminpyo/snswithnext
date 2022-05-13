@@ -44,7 +44,7 @@ if(process.env.NODE_ENV === 'production'){
 app.use(cors({ 
     /* 쿠키 관련  */
     credentials: true,
-    origin: ['http://localhost:3060', 'nodebird.com'],
+    origin: ['http://localhost:3060', 'http://13.209.67.255'],
     
 }))
 /* 경로구분자가 운영체제에 맞게 문제가 되기때문에  */
