@@ -31,8 +31,18 @@ if(process.env.NODE_ENV === 'production'){
   app.use(morgan('combined'))
   app.use(hpp());
   app.use(helmet());
+  app.use(cors({ 
+    /* 쿠키 관련  */
+    origin: ['http://localhost:3060', 'http://13.209.67.255'],
+    credentials: true,
+    
+}))
 }else{
   app.use(morgan('dev'));
+  app.use(cors({
+    origin: true,
+    credentials: true,
+  }));
 }
 
 /* 조회수 1올리는거나 뭔가애매한 것들은 post를 써라 
@@ -41,12 +51,7 @@ if(process.env.NODE_ENV === 'production'){
  예를 들면 애매한건 post로 하자 
  */
 /* cors에러 잡는데, */
-app.use(cors({ 
-    /* 쿠키 관련  */
-    credentials: true,
-    origin: ['http://localhost:3060', 'http://13.209.67.255'],
-    
-}))
+
 /* 경로구분자가 운영체제에 맞게 문제가 되기때문에  */
 app.use('/images',express.static(path.join(__dirname, 'uploads')))
  /* 미들웨어(여기)는 순서대로 실행된다. */
@@ -58,16 +63,18 @@ app.use(express.urlencoded({extended: true}));
 /* 로그인 처리가 서버에서 다된 후 과정 (쿠키 or 세션처리를 위한 미들웨어 )*/
 /* cookie도 secret */
 app.use(cookieParser( process.env.COOKIE_SECRET));
-app.use(session());
+app.use(session({
+     /* 나중에 다시 찾아보기 */
+     saveUninitialized: false,
+     resave: false,
+     /* secret이 해킹당하면 복원이 되어서 숨겨놔야한다. */
+   
+     secret: process.env.COOKIE_SECRET,
+}));
 app.use(passport.initialize());
 
 app.use(passport.session({
-    /* 나중에 다시 찾아보기 */
-    saveUninitialized: false,
-    resave: false,
-    /* secret이 해킹당하면 복원이 되어서 숨겨놔야한다. */
-  
-    secret: process.env.COOKIE_SECRET,
+ 
 }));
 /* url과 method (req,res)*/
 /* 주소창에 치는 것 get */
