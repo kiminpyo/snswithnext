@@ -11,7 +11,9 @@ router.get('/', async(req,res,next) =>{ /* GET /posts */
       where.id= {[Op.lt]: parseInt(req.query.lastId,10)}
    }
   const  posts = await Post.findAll({
+    where,
     /* 게시글의 제한 ==> findAll =다찾아라. 근데 limit:10으로 10개만 찾아라 어디서 부터? offset: 0*/  
+    
     limit: 10,
     /* offset: 0, */
     /* order은 정렬순서, 최신게시글부터 가져올때, DESC  <=> ASC 
