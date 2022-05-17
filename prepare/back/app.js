@@ -30,7 +30,7 @@ passportConfig();
 if(process.env.NODE_ENV === 'production'){
   app.use(morgan('combined'))
   app.use(hpp());
-  app.use(helmet());
+  app.use(helmet({ contentSecurityPolicy: false }));
   app.use(cors({ 
     /* 쿠키 관련  */
     origin: ['http://localhost:3060', 'http://13.209.67.255'],
@@ -68,14 +68,15 @@ app.use(session({
      saveUninitialized: false,
      resave: false,
      /* secret이 해킹당하면 복원이 되어서 숨겨놔야한다. */
-   
      secret: process.env.COOKIE_SECRET,
+     cookie: {
+      httpOnly: true,
+      secure: false,
+      domain: process.env.NODE_ENV === 'production' && '.nodebird.com'
+    },
 }));
 app.use(passport.initialize());
-
-app.use(passport.session({
- 
-}));
+app.use(passport.session());
 /* url과 method (req,res)*/
 /* 주소창에 치는 것 get */
 app.get('/',(req, res)=>{
