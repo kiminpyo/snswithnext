@@ -33,7 +33,7 @@ if(process.env.NODE_ENV === 'production'){
   app.use(helmet({ contentSecurityPolicy: false }));
   app.use(cors({ 
     /* 쿠키 관련  */
-    origin: ['http://localhost:3060', 'http://13.209.67.255'],
+    origin: ['http://localhost:3060', 'http://.inpyocommunity.shop'],
     credentials: true,
     
 }))
@@ -72,7 +72,7 @@ app.use(session({
      cookie: {
       httpOnly: true,
       secure: false,
-      domain: process.env.NODE_ENV === 'production' && '.nodebird.com'
+      domain: process.env.NODE_ENV === 'production' && '.inpyocommunity.shop'
     },
 }));
 app.use(passport.initialize());

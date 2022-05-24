@@ -1,1 +1,1 @@
-export const backUrl = 'http://3.39.135.187/'
+export const backUrl = 'http://api.inpyocommunity.shop'
