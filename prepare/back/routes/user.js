@@ -141,6 +141,7 @@ router.post('/signup',isNotLoggedIn,async(req, res, next)=>{ /* POST /user */
 
 
 router.post('/logout',isLoggedIn, (req,res,next)=>{
+    res.redirect('/');
    console.log(req.user)
    req.session.destroy();
    res.send('ok');
